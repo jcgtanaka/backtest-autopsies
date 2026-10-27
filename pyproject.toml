@@ -27,3 +27,9 @@ extend-exclude = ["cases", ".ipynb_checkpoints"]
 [tool.mypy]
 python_version = "3.10"
 ignore_missing_imports = true
+
+# The pandas and matplotlib stubs change between releases and flag correct
+# pandas idioms in these two modules. Their logic is covered by the tests.
+[[tool.mypy.overrides]]
+module = ["autopsy_common.perf", "autopsy_common.plots"]
+ignore_errors = true

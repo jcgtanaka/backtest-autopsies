@@ -32,7 +32,7 @@ def longest_drawdown_duration(returns: pd.Series) -> int:
 
 
 def _compound(r: pd.Series) -> float:
-    return float((1.0 + r).prod() - 1.0)  # type: ignore[operator, arg-type]
+    return float((1.0 + r).prod() - 1.0)
 
 
 def monthly_returns(returns: pd.Series) -> pd.Series:
