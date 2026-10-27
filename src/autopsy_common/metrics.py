@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 from itertools import combinations
-from typing import Dict
 
 import numpy as np
 import pandas as pd
@@ -24,7 +23,7 @@ def max_drawdown(returns: pd.Series) -> float:
     return float((eq / eq.cummax() - 1.0).min())
 
 
-def cscv_pbo(returns: pd.DataFrame, n_blocks: int = 10) -> Dict[str, object]:
+def cscv_pbo(returns: pd.DataFrame, n_blocks: int = 10) -> dict[str, object]:
     """Probability of Backtest Overfitting via combinatorially symmetric CV.
 
     `returns` is a (time x trial) matrix. Split time into n_blocks; for every
@@ -81,7 +80,7 @@ def deflated_sharpe_probability(returns: pd.Series, n_trials: int, trial_sharpe_
 
 
 def block_bootstrap_sharpe(returns: pd.Series, block: int = 10, n_boot: int = 1000,
-                           seed: int = 0, periods_per_year: int = 252) -> Dict[str, float]:
+                           seed: int = 0, periods_per_year: int = 252) -> dict[str, float]:
     """Moving-block bootstrap of the annualised Sharpe: 5th/95th percentile and the
     share of resamples with Sharpe > 0. Blocks preserve short-range dependence."""
     r = pd.Series(returns).dropna().to_numpy()
@@ -101,7 +100,7 @@ def block_bootstrap_sharpe(returns: pd.Series, block: int = 10, n_boot: int = 10
 
 
 def bootstrap_mean_ci(values: pd.Series, n_boot: int = 2000, seed: int = 0, level: float = 0.95,
-                      min_obs: int = 20) -> Dict[str, float]:
+                      min_obs: int = 20) -> dict[str, float]:
     """Seeded iid bootstrap interval for the mean of `values`.
 
     Returns `mean`, `lo` and `hi` (the central `level` interval). With fewer
@@ -118,7 +117,7 @@ def bootstrap_mean_ci(values: pd.Series, n_boot: int = 2000, seed: int = 0, leve
 
 
 def bootstrap_corr_ci(x: pd.Series, y: pd.Series, n_boot: int = 1000, seed: int = 0, block: int = 1,
-                      level: float = 0.90) -> Dict[str, float]:
+                      level: float = 0.90) -> dict[str, float]:
     """Seeded moving-block bootstrap interval for the Pearson correlation of two
     aligned series (pairs are resampled together, in blocks of `block` rows)."""
     a = pd.Series(x).to_numpy(dtype=float)
@@ -160,7 +159,7 @@ def cross_sectional_rank_ic(scores: pd.DataFrame, returns: pd.DataFrame, min_obs
     return pd.Series(out, dtype=float)
 
 
-def alpha_beta_regression(returns: pd.Series, benchmark: pd.Series, periods_per_year: int = 252) -> Dict[str, float]:
+def alpha_beta_regression(returns: pd.Series, benchmark: pd.Series, periods_per_year: int = 252) -> dict[str, float]:
     """OLS of strategy returns on benchmark returns (same periods).
 
     Returns the per-period and annualised alpha, beta, the t-statistic of alpha,

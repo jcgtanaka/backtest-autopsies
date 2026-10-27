@@ -6,8 +6,6 @@ explicit: there is no hidden 252.
 """
 from __future__ import annotations
 
-from typing import Optional
-
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -34,7 +32,7 @@ def longest_drawdown_duration(returns: pd.Series) -> int:
 
 
 def _compound(r: pd.Series) -> float:
-    return float((1.0 + r).prod() - 1.0)
+    return float((1.0 + r).prod() - 1.0)  # type: ignore[operator, arg-type]
 
 
 def monthly_returns(returns: pd.Series) -> pd.Series:
@@ -73,10 +71,10 @@ def performance_summary(
     returns: pd.Series,
     periods_per_year: int = 252,
     risk_free: float = 0.0,
-    gross_returns: Optional[pd.Series] = None,
-    benchmark: Optional[pd.Series] = None,
-    turnover: Optional[pd.Series] = None,
-    exposure: Optional[pd.Series] = None,
+    gross_returns: pd.Series | None = None,
+    benchmark: pd.Series | None = None,
+    turnover: pd.Series | None = None,
+    exposure: pd.Series | None = None,
     confidence: float = 0.95,
 ) -> pd.Series:
     """One labelled column of metrics. `returns` are the net returns.

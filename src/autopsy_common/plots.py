@@ -2,8 +2,6 @@
 objects computed by the case and returns a Figure; none of them read data."""
 from __future__ import annotations
 
-from typing import Optional
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -12,7 +10,7 @@ from scipy import stats
 from .perf import drawdown_series, equity_curve, monthly_returns, rolling_sharpe, rolling_vol, yearly_returns
 
 
-def plot_equity(net: pd.Series, gross: Optional[pd.Series] = None, benchmark: Optional[pd.Series] = None,
+def plot_equity(net: pd.Series, gross: pd.Series | None = None, benchmark: pd.Series | None = None,
                 title: str = "Equity curve (start = 1.0)") -> plt.Figure:
     fig, ax = plt.subplots(figsize=(9, 4))
     ax.plot(equity_curve(net), label="net", lw=1.8)
@@ -40,7 +38,7 @@ def plot_drawdown(returns: pd.Series, title: str = "Drawdown") -> plt.Figure:
 
 
 def plot_rolling_risk(returns: pd.Series, window: int = 60, periods_per_year: int = 252,
-                      title: Optional[str] = None) -> plt.Figure:
+                      title: str | None = None) -> plt.Figure:
     window = max(2, min(window, max(2, len(returns) // 2)))
     fig, axes = plt.subplots(2, 1, figsize=(9, 5), sharex=True)
     axes[0].plot(rolling_sharpe(returns, window, periods_per_year))
@@ -57,11 +55,11 @@ def plot_rolling_risk(returns: pd.Series, window: int = 60, periods_per_year: in
 
 def plot_monthly_heatmap(returns: pd.Series, title: str = "Monthly returns (%)") -> plt.Figure:
     m = monthly_returns(returns)
-    fig, ax = plt.subplots(figsize=(9, 1.2 + 0.5 * max(1, m.index.year.nunique() if len(m) else 1)))
+    fig, ax = plt.subplots(figsize=(9, 1.2 + 0.5 * max(1, m.index.year.nunique() if len(m) else 1)))  # type: ignore[attr-defined]
     if m.empty:
         ax.set_title(title)
         return fig
-    table = pd.DataFrame({"year": m.index.year, "month": m.index.month, "r": m.values}).pivot(
+    table = pd.DataFrame({"year": m.index.year, "month": m.index.month, "r": m.values}).pivot(  # type: ignore[attr-defined]
         index="year", columns="month", values="r").reindex(columns=range(1, 13))
     lim = max(float(np.nanmax(np.abs(table.values))), 1e-9)
     im = ax.imshow(table.values * 100, aspect="auto", cmap="RdYlGn", vmin=-lim * 100, vmax=lim * 100)
@@ -97,7 +95,7 @@ def plot_return_distribution(returns: pd.Series, title: str = "Return distributi
 def plot_yearly_bars(returns: pd.Series, title: str = "Calendar-year returns (%)") -> plt.Figure:
     y = yearly_returns(returns) * 100
     fig, ax = plt.subplots(figsize=(7, 3.5))
-    ax.bar(y.index.astype(str), y.values, color=np.where(y.values >= 0, "seagreen", "firebrick"))
+    ax.bar(y.index.astype(str), y.values, color=np.where(y.values >= 0, "seagreen", "firebrick"))  # type: ignore[operator]
     ax.axhline(0.0, color="k", lw=0.5)
     ax.set_title(title)
     ax.grid(alpha=0.3, axis="y")
@@ -126,7 +124,7 @@ def plot_cost_decomposition(costs: pd.DataFrame, title: str = "Costs by componen
     x = np.arange(len(costs))
     for c in costs.columns:
         ax.bar(x, costs[c].values, bottom=bottom, label=str(c))
-        bottom = bottom + costs[c].values
+        bottom = bottom + costs[c].values  # type: ignore[operator]
     labels = [str(i)[:7] if hasattr(i, "year") else str(i) for i in costs.index]
     ax.set_xticks(x, labels, rotation=45)
     ax.set_title(title)

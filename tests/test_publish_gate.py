@@ -12,7 +12,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
-import publish_gate as pg  # noqa: E402
+import publish_gate as pg
 
 GITIGNORE = "\n".join(pg.REQUIRED_GITIGNORE) + "\n"
 EM = chr(0x2014)

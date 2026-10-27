@@ -64,7 +64,7 @@ LINE_RULES: list[tuple[str, re.Pattern[str], bool]] = [
         False,
     ),
     ("abs-path", re.compile(r"/home/|/Users/|[A-Za-z]:\\|\bC:/"), True),
-    ("username", re.compile("|".join(re.escape(u) for u in USERNAMES) or r"(?!)", re.I), True),
+    ("username", re.compile("|".join(re.escape(u) for u in USERNAMES) or r"(?!)", re.IGNORECASE), True),
     (
         "secret",
         re.compile(

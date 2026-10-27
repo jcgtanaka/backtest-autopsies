@@ -1,7 +1,7 @@
 """Schema validation for a reader's own download or the synthetic sample."""
 from __future__ import annotations
 
-from typing import Dict, Sequence
+from collections.abc import Sequence
 
 import pandas as pd
 
@@ -15,7 +15,7 @@ def logical_dtype(series: pd.Series) -> str:
     return str(series.dtype)
 
 
-def check_schema(df: pd.DataFrame, expected: Dict[str, str], key: Sequence[str]) -> bool:
+def check_schema(df: pd.DataFrame, expected: dict[str, str], key: Sequence[str]) -> bool:
     """Fail early, with a clear message, if columns, dtypes, key uniqueness or
     sort order do not match. Returns True when everything matches."""
     missing = [c for c in expected if c not in df.columns]

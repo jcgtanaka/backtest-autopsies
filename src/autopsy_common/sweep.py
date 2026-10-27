@@ -3,7 +3,7 @@ caller passes a function that maps an initial equity to a dict of scalar
 results, and only the initial equity changes between calls."""
 from __future__ import annotations
 
-from typing import Callable, Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 
 import pandas as pd
 

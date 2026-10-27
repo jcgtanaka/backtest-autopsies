@@ -8,8 +8,8 @@ from __future__ import annotations
 
 import hashlib
 import os
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Dict, Optional, Sequence
 
 import pandas as pd
 
@@ -21,8 +21,8 @@ def use_synthetic() -> bool:
     return os.environ.get("AUTOPSY_SYNTHETIC", "") == "1"
 
 
-def load_daily_panel(schema: Dict[str, str], assets: Sequence[str], n_days: int,
-                     asset_classes: Optional[Dict[str, str]] = None, seed: int = 7) -> pd.DataFrame:
+def load_daily_panel(schema: dict[str, str], assets: Sequence[str], n_days: int,
+                     asset_classes: dict[str, str] | None = None, seed: int = 7) -> pd.DataFrame:
     """Return a panel restricted to the columns of `schema`, validated against it."""
     if use_synthetic():
         df = synthetic_daily_panel(assets, n_days, seed=seed, asset_classes=asset_classes)

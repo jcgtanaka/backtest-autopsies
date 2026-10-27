@@ -2,7 +2,13 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from autopsy_common.metrics import block_bootstrap_sharpe, cscv_pbo, deflated_sharpe_probability, max_drawdown, sharpe_ratio
+from autopsy_common.metrics import (
+    block_bootstrap_sharpe,
+    cscv_pbo,
+    deflated_sharpe_probability,
+    max_drawdown,
+    sharpe_ratio,
+)
 from autopsy_common.schema import check_schema
 from autopsy_common.synthetic import PANEL_KEY, PANEL_SCHEMA, synthetic_daily_panel
 from autopsy_common.walkforward import walk_forward_windows

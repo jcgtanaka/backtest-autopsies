@@ -1,7 +1,7 @@
 """Purged / embargoed walk-forward window generator."""
 from __future__ import annotations
 
-from typing import Iterator, Optional, Tuple
+from collections.abc import Iterator
 
 
 def walk_forward_windows(
@@ -10,8 +10,8 @@ def walk_forward_windows(
     step: int,
     purge: int,
     embargo: int = 0,
-    train_span: Optional[int] = None,
-) -> Iterator[Tuple[int, int, int, int]]:
+    train_span: int | None = None,
+) -> Iterator[tuple[int, int, int, int]]:
     """Yield (train_start, train_end, test_start, test_end), half-open row ranges.
 
     A refit happens every `step` rows starting at row `min_train`.

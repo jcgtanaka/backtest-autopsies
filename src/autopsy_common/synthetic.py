@@ -6,13 +6,13 @@ rounded so nothing resembles real market data.
 """
 from __future__ import annotations
 
-from typing import Dict, Optional, Sequence
+from collections.abc import Sequence
 
 import numpy as np
 import pandas as pd
 
 PANEL_KEY = ["date", "asset"]
-PANEL_SCHEMA: Dict[str, str] = {
+PANEL_SCHEMA: dict[str, str] = {
     "date": "datetime",
     "asset": "string",
     "asset_class": "string",
@@ -30,7 +30,7 @@ def synthetic_daily_panel(
     n_days: int,
     seed: int = 7,
     start: str = "2018-01-01",
-    asset_classes: Optional[Dict[str, str]] = None,
+    asset_classes: dict[str, str] | None = None,
     daily_vol: float = 0.008,
 ) -> pd.DataFrame:
     """Synthetic, same schema as the real data. len == len(assets) * n_days."""

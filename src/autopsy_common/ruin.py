@@ -1,12 +1,12 @@
 """Ruin checks for a USD equity path: did the account cross a floor, and when."""
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any
 
 import pandas as pd
 
 
-def ruin_report(equity: pd.Series, floor: float = 0.0) -> Dict[str, Any]:
+def ruin_report(equity: pd.Series, floor: float = 0.0) -> dict[str, Any]:
     """Summary of how an equity path relates to a floor (default zero).
 
     The floor is inclusive: a value equal to the floor counts as at or below it.
