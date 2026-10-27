@@ -1,0 +1,15 @@
+# Notebooks are committed EXECUTED with outputs: do not add nbstripout.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        exclude: ^cases/
+  - repo: local
+    hooks:
+      - id: publish-gate
+        name: publish gate (raw data, paths, secrets, em dashes)
+        entry: python tools/publish_gate.py
+        language: system
+        pass_filenames: false
+        always_run: true

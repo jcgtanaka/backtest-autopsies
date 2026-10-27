@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autopsy-common"
+version = "0.1.0"
+description = "Shared helpers for the backtest-autopsies case notebooks"
+requires-python = ">=3.10"
+dependencies = ["numpy", "pandas", "scipy", "scikit-learn"]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy", "pandas-stubs", "matplotlib"]
+notebooks = ["matplotlib", "pyarrow", "statsmodels", "yfinance", "jupyter", "nbconvert", "ipykernel"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tools"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+extend-exclude = ["cases", ".ipynb_checkpoints"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
